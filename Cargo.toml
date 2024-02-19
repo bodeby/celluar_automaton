@@ -1,0 +1,14 @@
+[package]
+name = "celluar_automaton"
+version = "0.1.0"
+edition = "2021"
+# build = "build.rs"
+
+[lib] # build as C dynamic library
+crate-type = ["cdylib"]
+
+# wasm target specific configuration
+[target.'cfg(target_arch = "wasm32")']
+rustflags = ["-C", "link-arg=--no-entry"]
+
+[dependencies]

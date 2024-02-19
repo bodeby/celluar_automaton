@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Rust WebAssembly Example</title>
+    </head>
+    <body>
+        <script>
+            fetch("http://localhost:8000/celluar_automaton.wasm")
+                .then((response) => response.arrayBuffer())
+                .then((bytes) => WebAssembly.instantiate(bytes, {}))
+                .then((obj) => {
+                    // Access the exported function from the WebAssembly module
+                    const result = obj.instance.exports.compute_square(2, 3);
+                    console.log(result); // This should log the result of your Rust function
+                })
+                .catch((error) => {
+                    console.error("Error loading WebAssembly:", error);
+                });
+        </script>
+    </body>
+</html>
